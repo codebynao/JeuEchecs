@@ -35,132 +35,6 @@ namespace JeuEchec
             PlayTurn();
         }
 
-        public void PlayTurn()
-        {
-            pieceCurrentPlayer = AskPieceToPlayer();
-            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]");
-            possibleCoordsPiece = GetCurrentPiecePossibleMoves();
-
-            ChooseCoords();
-
-            ReplaceCoords();
-
-            //TODO demander une piece à un joueur --> AskPieceToPlayer()
-            //TODO vérifier son emplacement sur plateau(tableau) --> AskCoordinate()
-            //TODO déplacer la pièce --> MovePiece
-            //TODO l'autre joueur joue le tour d'après
-            //TODO tant qu'aucun des joueurs a perdu (IsGameOver --> true) on recommence
-
-        }
-
-        public void FirstPlayer()
-        {
-            Random rd = new Random(DateTime.Now.Millisecond);
-            int NbRandom = rd.Next(0, 2);
-
-
-            if (NbRandom == 0)
-            {
-                ColourCurrentPlayer = Pieces.Colour.white;
-                Console.WriteLine(Player.ListPlayers[0] + " commence la partie et vous avez les pions " + ColourCurrentPlayer);
-            }
-            else
-            {
-                ColourCurrentPlayer = Pieces.Colour.black;
-                Console.WriteLine(Player.ListPlayers[1] + " commence la partie et vous avez les pions " + ColourCurrentPlayer);
-            }
-        }
-
-        public bool IsGameOver()
-        {
-            return false;
-        }
-
-        public void PrintBoard()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    //Console.Write(" ------------ ");
-                    if (GameBoard[i, j] != null)
-                    {
-                        Console.Write("|  " + GameBoard[i, j].DisplayName + "  |");
-                    }
-                    else
-                    {
-                        Console.Write("|            |");
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public Pieces AskPieceToPlayer()
-        {
-            Pieces p = null;
-            while (p == null || p.colour != ColourCurrentPlayer)
-            {
-                Console.WriteLine("Choisissez un numéro de ligne entre 0 et 7");
-                lig = int.Parse(Console.ReadLine());
-                Console.WriteLine("Choisissez un numéro de colonne entre 0 et 7");
-                col = int.Parse(Console.ReadLine());
-                p = GameBoard[lig, col];
-            }
-            return p;
-        }
-
-        public List<Coord> GetCurrentPiecePossibleMoves()
-        {
-            possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
-            return possibleCoordsPiece;
-        }
-
-        public void ChooseCoords()
-        {
-            index = 0;
-            Console.WriteLine("Veuillez choisir des coordonnées de déplacement : ");
-            for (int i = 0; i < possibleCoordsPiece.Count; i++)
-            {
-                Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
-                index += 1;
-            }
-
-            choice = int.Parse(Console.ReadLine());
-        }
-
-        public void ReplaceCoords()
-        {
-            Console.WriteLine("Old coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
-            for (int i = 0; i < possibleCoordsPiece.Count; i++)
-            {
-                if (i == choice)
-                {
-                    pieceCurrentPlayer.coord.x = possibleCoordsPiece[i].x;
-                    pieceCurrentPlayer.coord.y = possibleCoordsPiece[i].y;
-                }
-                else
-                {
-                    ChooseCoords();
-                }
-            }
-            Console.WriteLine("New coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
-        }
-
-        public Coord AskCoordinateIntoAList(List<Coord> listCoord)
-        {
-
-            return new Coord(2, 3);
-            //TODO Demander des coordonnées et chercher dans la liste si elles existent --> GetPossibleMoves
-            //TODO le joueur choisit la case sur laquelle il veut déplacer sa pièce
-            //TODO bouger la pièce --> MovePiece
-        }
-
-        public void MovePiece(Coord CoordPiece, Coord Destination)
-        {
-
-        }
-
         public void FillBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -273,6 +147,129 @@ namespace JeuEchec
             GameBoard[7, 7] = new Rook(Pieces.Colour.white);*/
 
         }
+
+        public void PrintBoard()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    //Console.Write(" ------------ ");
+                    if (GameBoard[i, j] != null)
+                    {
+                        Console.Write("|  " + GameBoard[i, j].DisplayName + "  |");
+                    }
+                    else
+                    {
+                        Console.Write("|            |");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void FirstPlayer()
+        {
+            Random rd = new Random(DateTime.Now.Millisecond);
+            int NbRandom = rd.Next(0, 2);
+
+
+            if (NbRandom == 0)
+            {
+                ColourCurrentPlayer = Pieces.Colour.white;
+                Console.WriteLine(Player.ListPlayers[0] + " commence la partie et vous avez les pions " + ColourCurrentPlayer);
+            }
+            else
+            {
+                ColourCurrentPlayer = Pieces.Colour.black;
+                Console.WriteLine(Player.ListPlayers[1] + " commence la partie et vous avez les pions " + ColourCurrentPlayer);
+            }
+        }
+
+
+        public void PlayTurn()
+        {
+            pieceCurrentPlayer = AskPieceToPlayer();
+            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]");
+            possibleCoordsPiece = GetCurrentPiecePossibleMoves();
+
+            ChooseCoords();
+
+            ReplaceCoords();
+
+            //TODO demander une piece à un joueur --> AskPieceToPlayer()
+            //TODO vérifier son emplacement sur plateau(tableau) --> AskCoordinate()
+            //TODO déplacer la pièce --> MovePiece
+            //TODO l'autre joueur joue le tour d'après
+            //TODO tant qu'aucun des joueurs a perdu (IsGameOver --> true) on recommence
+
+        }
+
+
+
+
+
+        public Pieces AskPieceToPlayer()
+        {
+            Pieces p = null;
+            while (p == null || p.colour != ColourCurrentPlayer)
+            {
+                Console.WriteLine("Choisissez un numéro de ligne entre 0 et 7");
+                lig = int.Parse(Console.ReadLine());
+                Console.WriteLine("Choisissez un numéro de colonne entre 0 et 7");
+                col = int.Parse(Console.ReadLine());
+                p = GameBoard[lig, col];
+            }
+            return p;
+        }
+
+        public List<Coord> GetCurrentPiecePossibleMoves()
+        {
+            possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
+            return possibleCoordsPiece;
+        }
+
+        public void ChooseCoords()
+        {
+            index = 0;
+            Console.WriteLine("Veuillez choisir des coordonnées de déplacement : ");
+            for (int i = 0; i < possibleCoordsPiece.Count; i++)
+            {
+                Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
+                index += 1;
+            }
+
+            choice = int.Parse(Console.ReadLine());
+        }
+
+        public void ReplaceCoords()
+        {
+            Console.WriteLine("Old coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
+            for (int i = 0; i < possibleCoordsPiece.Count; i++)
+            {
+                if (i == choice)
+                {
+                    pieceCurrentPlayer.coord.x = possibleCoordsPiece[i].x;
+                    pieceCurrentPlayer.coord.y = possibleCoordsPiece[i].y;
+                }
+                else
+                {
+                    ChooseCoords();
+                }
+            }
+            Console.WriteLine("New coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
+        }
+
+        public void MovePiece(Coord CoordPiece, Coord Destination)
+        {
+
+        }
+
+        public bool IsGameOver()
+        {
+            return false;
+        }
+
 
 
 
