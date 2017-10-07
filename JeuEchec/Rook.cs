@@ -16,38 +16,50 @@ namespace JeuEchec
         {
             DisplayName = "Ro." + colour;
         }
+
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
             Colour ColourEnnemy;
             int Direction;
 
-
+            //direction des pions
             if (colour == Colour.black)
             {
                 ColourEnnemy = Colour.white;
-                Direction = -1;
+                Direction = 1;
             }
 
             else
             {
                 ColourEnnemy = Colour.black;
-                Direction = 1;
+                Direction = -1;
             }
 
-            Pieces CaseDirection = GameBoard[coord.x, coord.y + Direction];
-            Pieces CaseSide1 = GameBoard[coord.x + 1, coord.y + Direction];
-            Pieces CaseSide2 = GameBoard[coord.x - 1, coord.y + Direction];
+            //initialisation 
+            Pieces CaseDirection = null;
+            Pieces CaseSide1 = null;
+            Pieces CaseSide2 = null;
 
+            //Vérification coords dans les limites du plateau
+            if (coord.x + Direction < 8)
+                CaseDirection = GameBoard[coord.x + Direction, coord.y];
 
-            if (CaseDirection == null && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
-                coords.Add(new Coord(coord.x, coord.y + Direction));
+            if (coord.x + Direction < 8 && coord.y + 1 < 8)
+                CaseSide1 = GameBoard[coord.x + Direction, coord.y + 1];
 
-            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
-                coords.Add(new Coord(coord.x + 1, coord.y + Direction));
+            if (coord.x + Direction < 8 && coord.y - 1 >= 0)
+                CaseSide2 = GameBoard[coord.x + Direction, coord.y - 1];
 
-            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
-                coords.Add(new Coord(coord.x - 1, coord.y + Direction));
+            //Ajout des coords disponibles
+            if (CaseDirection == null)
+                coords.Add(new Coord(coord.x + Direction, coord.y));
+
+            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
+                coords.Add(new Coord(coord.x + Direction, coord.y + 1));
+
+            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)
+                coords.Add(new Coord(coord.x + Direction, coord.y - 1));
 
 
             return coords;

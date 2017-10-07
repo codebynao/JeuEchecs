@@ -112,8 +112,9 @@ namespace JeuEchec
         public List<Coord> ShowCoordtoPlayer()
         {
             possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
-            Console.WriteLine(pieceCurrentPlayer.coord);
-            Console.WriteLine(possibleCoordsPiece);
+            Console.WriteLine(pieceCurrentPlayer.coord.x);
+            Console.WriteLine(pieceCurrentPlayer.coord.y);
+
             return possibleCoordsPiece;
         }
 
