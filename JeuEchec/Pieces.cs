@@ -10,9 +10,15 @@ namespace JeuEchec
     {
         public enum Colour { white, black}
         public Colour colour;
-        public Player player;
+        public Coord coord;
 
         public string DisplayName;
+
+        public Pieces(Colour colour, Coord coord)
+        {
+            this.colour = colour;
+            this.coord = coord;
+        }
 
         public Pieces(Colour colour)
         {

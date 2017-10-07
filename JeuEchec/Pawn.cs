@@ -8,6 +8,10 @@ namespace JeuEchec
 {
     class Pawn : Pieces
     {
+        public Pawn(Colour colour, Coord coord) : base(colour, coord)
+        {
+            DisplayName = "Pa." + colour;
+        }
         public Pawn(Colour colour) : base(colour)
         {
             DisplayName = "Pa." + colour;
@@ -37,13 +41,13 @@ namespace JeuEchec
             Pieces CaseSide2 = GameBoard[coord.x-1, coord.y + Direction];
 
 
-            if(CaseDirection == null)
+            if (CaseDirection == null && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
                 coords.Add(new Coord(coord.x, coord.y + Direction));
 
-            if(CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
+            if(CaseSide1 != null && CaseSide1.colour == ColourEnnemy && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
                 coords.Add(new Coord(coord.x+1, coord.y + Direction));
 
-            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)
+            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy && CaseDirection.coord.x < 8 && CaseDirection.coord.y < 8)
                 coords.Add(new Coord(coord.x - 1, coord.y + Direction));
 
 

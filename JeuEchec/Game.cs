@@ -16,6 +16,8 @@ namespace JeuEchec
         public Pieces.Colour ColourCurrentPlayer;
         public int lig;
         public int col;
+        public Pieces pieceCurrentPlayer;
+        public List<Coord> possibleCoordsPiece;
 
         public void StartGame()
         {
@@ -33,8 +35,15 @@ namespace JeuEchec
 
         public void PlayTurn()
         {
-            Pieces p = AskPieceToPlayer();
+            pieceCurrentPlayer = AskPieceToPlayer();
             Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName +"["+lig+","+col+"]");
+            possibleCoordsPiece = ShowCoordtoPlayer();
+
+            foreach(Coord i in possibleCoordsPiece)
+            {
+                Console.WriteLine(i);
+            }
+            
             //TODO demander une piece à un joueur --> AskPieceToPlayer()
             //TODO vérifier son emplacement sur plateau(tableau) --> AskCoordinate()
             //TODO déplacer la pièce --> MovePiece
@@ -85,13 +94,7 @@ namespace JeuEchec
                 Console.WriteLine();
             }
         }
-        public void ChooseCoordPiece()
-        {
-            Console.WriteLine("Choisissez un numéro de ligne entre 0 et 7");
-            lig = int.Parse(Console.ReadLine());
-            Console.WriteLine("Choisissez un numéro de colonne entre 0 et 7");
-            col = int.Parse(Console.ReadLine());
-        }
+
         public Pieces AskPieceToPlayer()
         {
             Pieces p = null;
@@ -106,20 +109,22 @@ namespace JeuEchec
             return p;
         }
 
-        /*public Pieces AskCoordinateToFindYourPiece()
+        public List<Coord> ShowCoordtoPlayer()
         {
-            //TODO demander les coordonnées en boucle pour trouver la pièce
-            //TODO si on trouve la piece --> AskCoordinateIntoAList
-            //TODO sinon demander une autre piece au joueur...
-            //TODO 
+            possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
+            Console.WriteLine(pieceCurrentPlayer.coord);
+            Console.WriteLine(possibleCoordsPiece);
+            return possibleCoordsPiece;
         }
 
         public Coord AskCoordinateIntoAList(List<Coord> listCoord)
         {
+            
+            return new Coord(2,3);
             //TODO Demander des coordonnées et chercher dans la liste si elles existent --> GetPossibleMoves
             //TODO le joueur choisit la case sur laquelle il veut déplacer sa pièce
             //TODO bouger la pièce --> MovePiece
-        }*/
+        }
 
         public void MovePiece(Coord CoordPiece, Coord Destination)
         {
@@ -128,7 +133,7 @@ namespace JeuEchec
 
         public void FillBoard()
         {
-            /*for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 switch (i)
                 {
@@ -139,21 +144,21 @@ namespace JeuEchec
                             {
                                 case 0:
                                 case 7:
-                                    GameBoard[i, j] = new Rook(Pieces.Colour.black);
+                                    GameBoard[i, j] = new Rook(Pieces.Colour.black, new Coord(i, j));
                                     break;
                                 case 1:
                                 case 6:
-                                    GameBoard[i, j] = new Knight(Pieces.Colour.black);
+                                    GameBoard[i, j] = new Knight(Pieces.Colour.black, new Coord(i, j));
                                     break;
                                 case 2:
                                 case 5:
-                                    GameBoard[i, j] = new Bishop(Pieces.Colour.black);
+                                    GameBoard[i, j] = new Bishop(Pieces.Colour.black, new Coord(i, j));
                                     break;
                                 case 3:
-                                    GameBoard[i, j] = new Queen(Pieces.Colour.black);
+                                    GameBoard[i, j] = new Queen(Pieces.Colour.black, new Coord(i, j));
                                     break;
                                 case 4:
-                                    GameBoard[i, j] = new King(Pieces.Colour.black);
+                                    GameBoard[i, j] = new King(Pieces.Colour.black, new Coord(i, j));
                                     break;
                             }
                         }
@@ -162,14 +167,14 @@ namespace JeuEchec
                     case 1:
                         for (int j = 0; j < 8; j++)
                         {
-                            GameBoard[i, j] = new Pawn(Pieces.Colour.black);
+                            GameBoard[i, j] = new Pawn(Pieces.Colour.black, new Coord(i, j));
                         }
                         break;
 
                     case 6:
                         for (int j = 0; j < 8; j++)
                         {
-                            GameBoard[i, j] = new Pawn(Pieces.Colour.white);
+                            GameBoard[i, j] = new Pawn(Pieces.Colour.white, new Coord(i, j));
                         }
                         break;
 
@@ -180,27 +185,29 @@ namespace JeuEchec
                             {
                                 case 0:
                                 case 7:
-                                    GameBoard[i, j] = new Rook(Pieces.Colour.white);
+                                    GameBoard[i, j] = new Rook(Pieces.Colour.white, new Coord(i, j));
                                     break;
                                 case 1:
                                 case 6:
-                                    GameBoard[i, j] = new Knight(Pieces.Colour.white);
+                                    GameBoard[i, j] = new Knight(Pieces.Colour.white, new Coord(i, j));
                                     break;
                                 case 2:
                                 case 5:
-                                    GameBoard[i, j] = new Bishop(Pieces.Colour.white);
+                                    GameBoard[i, j] = new Bishop(Pieces.Colour.white, new Coord(i, j));
                                     break;
                                 case 3:
-                                    GameBoard[i, j] = new Queen(Pieces.Colour.white);
+                                    GameBoard[i, j] = new Queen(Pieces.Colour.white, new Coord(i, j));
                                     break;
                                 case 4:
-                                    GameBoard[i, j] = new King(Pieces.Colour.white);
+                                    GameBoard[i, j] = new King(Pieces.Colour.white, new Coord(i, j));
                                     break;
                             }
                         }
                         break;
                 }
-            }*/
+            }
+
+            /*
             GameBoard[0, 0] = new Rook(Pieces.Colour.black);
             GameBoard[0, 1] = new Knight(Pieces.Colour.black);
             GameBoard[0, 2] = new Bishop(Pieces.Colour.black);
@@ -233,7 +240,7 @@ namespace JeuEchec
             GameBoard[7, 4] = new Queen(Pieces.Colour.white);
             GameBoard[7, 5] = new Bishop(Pieces.Colour.white);
             GameBoard[7, 6] = new Knight(Pieces.Colour.white);
-            GameBoard[7, 7] = new Rook(Pieces.Colour.white);
+            GameBoard[7, 7] = new Rook(Pieces.Colour.white);*/
 
         }
 
