@@ -18,6 +18,8 @@ namespace JeuEchec
         public int col;
         public Pieces pieceCurrentPlayer;
         public List<Coord> possibleCoordsPiece;
+        public int index;
+        public int choice;
 
         public void StartGame()
         {
@@ -29,21 +31,20 @@ namespace JeuEchec
             PrintBoard();
             //choix du joueur qui commence
             FirstPlayer();
-            
+
             PlayTurn();
         }
 
         public void PlayTurn()
         {
             pieceCurrentPlayer = AskPieceToPlayer();
-            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName +"["+lig+","+col+"]");
-            possibleCoordsPiece = ShowCoordtoPlayer();
+            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]");
+            possibleCoordsPiece = GetCurrentPiecePossibleMoves();
 
-            for (int i = 0; i < possibleCoordsPiece.Count; i++)
-            {
-                Console.WriteLine("La position : [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
-            }
-            
+            ChooseCoords();
+
+            ReplaceCoords();
+
             //TODO demander une piece à un joueur --> AskPieceToPlayer()
             //TODO vérifier son emplacement sur plateau(tableau) --> AskCoordinate()
             //TODO déplacer la pièce --> MovePiece
@@ -109,16 +110,47 @@ namespace JeuEchec
             return p;
         }
 
-        public List<Coord> ShowCoordtoPlayer()
+        public List<Coord> GetCurrentPiecePossibleMoves()
         {
             possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
             return possibleCoordsPiece;
         }
 
+        public void ChooseCoords()
+        {
+            index = 0;
+            Console.WriteLine("Veuillez choisir des coordonnées de déplacement : ");
+            for (int i = 0; i < possibleCoordsPiece.Count; i++)
+            {
+                Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
+                index += 1;
+            }
+
+            choice = int.Parse(Console.ReadLine());
+        }
+
+        public void ReplaceCoords()
+        {
+            Console.WriteLine("Old coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
+            for (int i = 0; i < possibleCoordsPiece.Count; i++)
+            {
+                if (i == choice)
+                {
+                    pieceCurrentPlayer.coord.x = possibleCoordsPiece[i].x;
+                    pieceCurrentPlayer.coord.y = possibleCoordsPiece[i].y;
+                }
+                else
+                {
+                    ChooseCoords();
+                }
+            }
+            Console.WriteLine("New coords :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
+        }
+
         public Coord AskCoordinateIntoAList(List<Coord> listCoord)
         {
-            
-            return new Coord(2,3);
+
+            return new Coord(2, 3);
             //TODO Demander des coordonnées et chercher dans la liste si elles existent --> GetPossibleMoves
             //TODO le joueur choisit la case sur laquelle il veut déplacer sa pièce
             //TODO bouger la pièce --> MovePiece
@@ -248,4 +280,3 @@ namespace JeuEchec
 
     }
 }
-
