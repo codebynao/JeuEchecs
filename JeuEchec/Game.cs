@@ -39,9 +39,9 @@ namespace JeuEchec
             Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName +"["+lig+","+col+"]");
             possibleCoordsPiece = ShowCoordtoPlayer();
 
-            foreach(Coord i in possibleCoordsPiece)
+            for (int i = 0; i < possibleCoordsPiece.Count; i++)
             {
-                Console.WriteLine(i);
+                Console.WriteLine("La position : [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
             }
             
             //TODO demander une piece à un joueur --> AskPieceToPlayer()
@@ -112,9 +112,6 @@ namespace JeuEchec
         public List<Coord> ShowCoordtoPlayer()
         {
             possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
-            Console.WriteLine(pieceCurrentPlayer.coord.x);
-            Console.WriteLine(pieceCurrentPlayer.coord.y);
-
             return possibleCoordsPiece;
         }
 
