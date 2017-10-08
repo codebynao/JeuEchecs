@@ -144,7 +144,7 @@ namespace JeuEchec
                     coords.Add(new Coord(coord.x, newCoord));
                     break;
                 }
-                else if (CaseDirection == null)
+                else if (CaseDirection == null && newCoord < 8 && newCoord >= 0)
                 {
                     coords.Add(new Coord(coord.x, newCoord));
                 }
