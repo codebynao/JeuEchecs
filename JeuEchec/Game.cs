@@ -32,6 +32,7 @@ namespace JeuEchec
             //choix du joueur qui commence
             FirstPlayer();
 
+            //Partie finie ou non
             bool gameOver = IsGameOver();
 
             while( gameOver == false)
@@ -41,6 +42,7 @@ namespace JeuEchec
             
         }
 
+        //Remplissage du plateau
         public void FillBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -154,6 +156,7 @@ namespace JeuEchec
 
         }
 
+        //Affichage du plateau et des pions
         public void PrintBoard()
         {
             for (int i = 0; i < 8; i++)
@@ -167,13 +170,15 @@ namespace JeuEchec
                     }
                     else
                     {
-                        Console.Write("|            |");
+                        Console.Write("|     xx     |");
                     }
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
         }
 
+        //Choix du premier joueur
         public void FirstPlayer()
         {
             Random rd = new Random(DateTime.Now.Millisecond);
@@ -187,7 +192,7 @@ namespace JeuEchec
             }
             else
             {
-                ColourCurrentPlayer = Pieces.Colour.black;
+                ColourCurrentPlayer = Pieces.Colour.white;
                 Console.WriteLine(Player.ListPlayers[1] + " commence la partie avec les pions " + ColourCurrentPlayer);
             }
         }
@@ -195,15 +200,22 @@ namespace JeuEchec
 
         public void PlayTurn()
         {
+            Console.WriteLine("C'est au tour des pions " + ColourCurrentPlayer);
+            
+            //Le joueur choisit un pion
             pieceCurrentPlayer = AskPieceToPlayer();
-            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]");
+            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]\n");
 
+            //Récupération de la liste des déplacements possibles
             possibleCoordsPiece = GetCurrentPiecePossibleMoves();
 
+            //Le joueur choisit son déplacement
             ChooseCoords();
 
+            //Déplacement du pion
             MovePiece();
 
+            //Changement de joueur
             if (ColourCurrentPlayer == Pieces.Colour.white)
             {
                 ColourCurrentPlayer = Pieces.Colour.black;
@@ -213,23 +225,16 @@ namespace JeuEchec
                 ColourCurrentPlayer = Pieces.Colour.white;
             }
 
-            //TODO demander une piece à un joueur --> AskPieceToPlayer()
-            //TODO vérifier son emplacement sur plateau(tableau) --> AskCoordinate()
-            //TODO déplacer la pièce --> MovePiece
-            //TODO l'autre joueur joue le tour d'après
-            //TODO tant qu'aucun des joueurs a perdu (IsGameOver --> true) on recommence
-
         }
 
 
 
 
-
+        //Demande un pion au joueur en choisissant ses coordonnées
         public Pieces AskPieceToPlayer()
         {
             Pieces p = null;
 
-            Console.WriteLine("C'est au tour des pions " + ColourCurrentPlayer);
             while (p == null || p.colour != ColourCurrentPlayer)
             {
                 Console.WriteLine("Choisissez un numéro de ligne entre 0 et 7");
@@ -241,26 +246,38 @@ namespace JeuEchec
             return p;
         }
 
+        //Récupération de la liste des mouvements possibles en fonction du pion choisi
         public List<Coord> GetCurrentPiecePossibleMoves()
         {
             possibleCoordsPiece = pieceCurrentPlayer.GetPossibleMoves(GameBoard, pieceCurrentPlayer.coord);
             return possibleCoordsPiece;
         }
 
+        //Demande un déplacement au joueur dans la liste des mouvements possibles
         public void ChooseCoords()
         {
             index = 0;
-
-            Console.WriteLine("Veuillez choisir des coordonnées de déplacement : ");
-            for (int i = 0; i < possibleCoordsPiece.Count; i++)
+            if (possibleCoordsPiece.Count > 0)
             {
-                Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
-                index += 1;
+                Console.WriteLine("Veuillez choisir des coordonnées de déplacement : ");
+                for (int i = 0; i < possibleCoordsPiece.Count; i++)
+                {
+                    Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
+                    index += 1;
+                }
+
+                choice = int.Parse(Console.ReadLine());
             }
+            else
+            {
+                Console.WriteLine("Aucun déplacement n'est possible.");
+                AskPieceToPlayer();
 
-            choice = int.Parse(Console.ReadLine());
+            }
+            
         }
-
+        
+        //Déplacement du pion
         public void MovePiece()
         {
             int oldCoordX = pieceCurrentPlayer.coord.x;
@@ -296,6 +313,7 @@ namespace JeuEchec
             PrintBoard();
         }
 
+        //Fin de partie
         public bool IsGameOver()
         {
             return false;

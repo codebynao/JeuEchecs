@@ -29,7 +29,7 @@ namespace JeuEchec
                 ColourEnnemy = Colour.white;
                 Direction = 1;
             }
-                
+
             else
             {
                 ColourEnnemy = Colour.black;
@@ -38,14 +38,15 @@ namespace JeuEchec
 
             //initialisation 
             Pieces CaseDirection = null;
+            Pieces CaseDirection2 = null;
             Pieces CaseSide1 = null;
             Pieces CaseSide2 = null;
 
             //Vérification coords dans les limites du plateau
-            if(coord.x+Direction < 8)
+            if (coord.x + Direction < 8)
                 CaseDirection = GameBoard[coord.x + Direction, coord.y];
 
-            if(coord.x + Direction < 8 && coord.y + 1 < 8)
+            if (coord.x + Direction < 8 && coord.y + 1 < 8)
                 CaseSide1 = GameBoard[coord.x + Direction, coord.y + 1];
 
             if (coord.x + Direction < 8 && coord.y - 1 >= 0)
@@ -53,13 +54,16 @@ namespace JeuEchec
 
             //Ajout des coords disponibles
             if (CaseDirection == null)
-                coords.Add(new Coord(coord.x+Direction, coord.y));
+                coords.Add(new Coord(coord.x + Direction, coord.y));
 
-            if(CaseDirection != null && CaseDirection.colour == ColourEnnemy)
-                coords.Add(new Coord(coord.x+Direction, coord.y+1));
+            if (CaseDirection == null && CaseDirection2 == null && (coord.x == 1 || coord.x == 6))
+                coords.Add(new Coord(coord.x + (Direction*2), coord.y));
+
+            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
+                coords.Add(new Coord(coord.x + Direction, coord.y + 1));
 
             if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)
-                coords.Add(new Coord(coord.x+Direction, coord.y-1));
+                coords.Add(new Coord(coord.x + Direction, coord.y - 1));
 
 
             return coords;
