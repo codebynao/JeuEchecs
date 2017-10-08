@@ -37,28 +37,134 @@ namespace JeuEchec
 
             //initialisation 
             Pieces CaseDirection = null;
-            Pieces CaseSide1 = null;
-            Pieces CaseSide2 = null;
+            int newCoordX;
+            int newCoordY;
+
+            
+            /*UpLeft*/
+            newCoordX = coord.x + Direction;
+            newCoordY = coord.y + Direction;
 
             //Vérification coords dans les limites du plateau
-            if (coord.x + Direction < 8)
-                CaseDirection = GameBoard[coord.x + Direction, coord.y];
+            if (newCoordX < 8 && newCoordX >= 0 && newCoordY < 8 && newCoordY >= 0)
+                CaseDirection = GameBoard[newCoordX, newCoordY];
+                
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, newCoordY));
 
-            if (coord.x + Direction < 8 && coord.y + 1 < 8)
-                CaseSide1 = GameBoard[coord.x + Direction, coord.y + 1];
+            else if (CaseDirection == null)
+                coords.Add(new Coord(newCoordX, newCoordY));
 
-            if (coord.x + Direction < 8 && coord.y - 1 >= 0)
-                CaseSide2 = GameBoard[coord.x + Direction, coord.y - 1];
+
+            /*Up*/
+            newCoordX = coord.x + Direction;
+            //Vérification coords dans les limites du plateau
+            if (newCoordX < 8 && newCoordX >= 0)
+                CaseDirection = GameBoard[newCoordX, coord.y];
 
             //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, coord.y));
+
+            else if (CaseDirection == null)
+                coords.Add(new Coord(newCoordX, coord.y));
+            
+            
+            /*UpRight*/
+            newCoordX = coord.x + Direction;
+            newCoordY = coord.y - Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordX < 8 && newCoordX >= 0 && newCoordY < 8 && newCoordY >= 0)
+                CaseDirection = GameBoard[newCoordX, newCoordY];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, newCoordY));
+
+            else if (CaseDirection == null)
+                coords.Add(new Coord(newCoordX, newCoordY));
+
+
+            /*Right*/
+            newCoordY = coord.y - Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordY < 8 && newCoordY >= 0)
+                CaseDirection = GameBoard[coord.x, newCoordY];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(coord.x, newCoordY));
+
+            else if (CaseDirection == null && newCoordY < 8 && newCoordY >= 0)
+                coords.Add(new Coord(coord.x, newCoordY));
+
+
+            /*DownRight*/
+            newCoordX = coord.x - Direction;
+            newCoordY = coord.y - Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordX < 8 && newCoordX >= 0 && newCoordY < 8 && newCoordY >= 0)
+                CaseDirection = GameBoard[newCoordX, newCoordY];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, newCoordY));
+
             if (CaseDirection == null)
-                coords.Add(new Coord(coord.x + Direction, coord.y));
+                coords.Add(new Coord(newCoordX, newCoordY));
 
-            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
-                coords.Add(new Coord(coord.x + Direction, coord.y + 1));
 
-            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)
-                coords.Add(new Coord(coord.x + Direction, coord.y - 1));
+            /*Down*/
+            newCoordX = coord.x - Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordX < 8 && newCoordX >= 0)
+                CaseDirection = GameBoard[newCoordX, coord.y];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, coord.y));
+
+            else if (CaseDirection == null)
+                coords.Add(new Coord(newCoordX, coord.y));
+
+
+            /*DownLeft*/
+            newCoordX = coord.x - Direction;
+            newCoordY = coord.y + Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordX < 8 && newCoordX >= 0 && newCoordY < 8 && newCoordY >= 0)
+               CaseDirection = GameBoard[newCoordX, newCoordY];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(newCoordX, newCoordY));
+
+            else if (CaseDirection == null)
+                coords.Add(new Coord(newCoordX, newCoordY));
+
+
+            /*Left*/
+            newCoordY = coord.y + Direction;
+
+            //Vérification coords dans les limites du plateau
+            if (newCoordY < 8 && newCoordY >= 0)
+                CaseDirection = GameBoard[coord.x, newCoordY];
+
+            //Ajout des coords disponibles
+            if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                coords.Add(new Coord(coord.x, newCoordY));
+
+            else if (CaseDirection == null && newCoordY < 8 && newCoordY >= 0)
+                coords.Add(new Coord(coord.x, newCoordY));
+
+
+
 
 
             return coords;

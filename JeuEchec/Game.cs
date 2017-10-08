@@ -304,7 +304,6 @@ namespace JeuEchec
                 }
             }
             
-            Console.WriteLine("Vous avez déplacé votre pion au :" + pieceCurrentPlayer.coord.x + " | " + pieceCurrentPlayer.coord.y);
             Console.WriteLine();
             Console.WriteLine();
             
