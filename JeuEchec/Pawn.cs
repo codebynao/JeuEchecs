@@ -53,16 +53,16 @@ namespace JeuEchec
                 CaseSide2 = GameBoard[coord.x + Direction, coord.y - 1];
 
             //Ajout des coords disponibles
-            if (CaseDirection == null)
+            if (CaseDirection == null)//case en avant
                 coords.Add(new Coord(coord.x + Direction, coord.y));
 
-            if (CaseDirection == null && CaseDirection2 == null && (coord.x == 1 || coord.x == 6))
+            if (CaseDirection == null && CaseDirection2 == null && (coord.x == 1 || coord.x == 6)) //2 cases en avant au premier tour
                 coords.Add(new Coord(coord.x + (Direction*2), coord.y));
 
-            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
+            if (CaseSide1 != null && CaseSide1.colour == ColourEnnemy) //Attaque Diagonale
                 coords.Add(new Coord(coord.x + Direction, coord.y + 1));
 
-            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)
+            if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy) //Attaque Diagonale
                 coords.Add(new Coord(coord.x + Direction, coord.y - 1));
 
 

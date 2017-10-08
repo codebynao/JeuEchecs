@@ -271,8 +271,9 @@ namespace JeuEchec
             else
             {
                 Console.WriteLine("Aucun déplacement n'est possible.");
-                AskPieceToPlayer();
-
+                pieceCurrentPlayer = AskPieceToPlayer();
+                possibleCoordsPiece = GetCurrentPiecePossibleMoves();
+                ChooseCoords();
             }
             
         }
@@ -299,10 +300,7 @@ namespace JeuEchec
                     {
                         GameBoard[pieceCurrentPlayer.coord.x, pieceCurrentPlayer.coord.y] = pieceCurrentPlayer;
                     }
-                }
-                else
-                {
-                    ChooseCoords();
+                   
                 }
             }
             
