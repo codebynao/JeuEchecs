@@ -12,8 +12,8 @@ namespace JeuEchec
         {
             Game game = new Game();
 
-            Player joueur1 = new Player("Jojo");
-            Player joueur2 = new Player("Gigi");
+            Player joueur1 = new Player("Joueur 1");
+            Player joueur2 = new Player("Joueur 2");
 
             game.StartGame();
 

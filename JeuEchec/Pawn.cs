@@ -55,7 +55,7 @@ namespace JeuEchec
             if (CaseDirection == null)
                 coords.Add(new Coord(coord.x+Direction, coord.y));
 
-            if(CaseSide1 != null && CaseSide1.colour == ColourEnnemy)
+            if(CaseDirection != null && CaseDirection.colour == ColourEnnemy)
                 coords.Add(new Coord(coord.x+Direction, coord.y+1));
 
             if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy)

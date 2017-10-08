@@ -12,3 +12,10 @@ C:\Users\npaul\Documents\Ingesup\Github\JeuEchec\JeuEchec\obj\Debug\JeuEchec.csp
 C:\Users\npaul\Documents\Ingesup\Github\JeuEchec\JeuEchec\obj\Debug\JeuEchec.csproj.CoreCompileInputs.cache
 C:\Users\npaul\Documents\Ingesup\Github\JeuEchec\JeuEchec\obj\Debug\JeuEchec.exe
 C:\Users\npaul\Documents\Ingesup\Github\JeuEchec\JeuEchec\obj\Debug\JeuEchec.pdb
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\bin\Debug\JeuEchec.exe.config
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\bin\Debug\JeuEchec.exe
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\bin\Debug\JeuEchec.pdb
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\obj\Debug\JeuEchec.csprojResolveAssemblyReference.cache
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\obj\Debug\JeuEchec.csproj.CoreCompileInputs.cache
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\obj\Debug\JeuEchec.exe
+C:\Users\npaul\Documents\Ingesup\CoursB2\Langage Objet\Projets\JeuEchecs\JeuEchec\obj\Debug\JeuEchec.pdb
