@@ -8,15 +8,16 @@ namespace JeuEchec
 {
     class Bishop : Pieces
     {
+        //Constructeurs
         public Bishop(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Bi." + colour;
         }
         public Bishop(Colour colour) : base(colour)
         {
-            DisplayName = "Bi." + colour;
         }
 
+        //Methode
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
@@ -41,7 +42,7 @@ namespace JeuEchec
             int newCoordX;
             int newCoordY;
 
-            //UpLeft
+            /*UpLeft*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x + (i * Direction);
@@ -74,7 +75,7 @@ namespace JeuEchec
                 }
             }
 
-            //UpRight
+            /*UpRight*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x + (i * Direction);
@@ -107,7 +108,7 @@ namespace JeuEchec
                 }
             }
 
-            //DownLeft
+            /*DownLeft*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x - (i * Direction);
@@ -140,7 +141,7 @@ namespace JeuEchec
                 }
             }
 
-            //DownRight
+            /*DownRight*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x - (i * Direction);

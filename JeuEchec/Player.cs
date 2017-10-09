@@ -15,9 +15,6 @@ namespace JeuEchec
         {
             this.name = name;
             ListPlayers.Add(name);
-
-
-        }
-        
+        }        
     }
 }

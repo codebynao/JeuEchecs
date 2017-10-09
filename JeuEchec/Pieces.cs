@@ -8,12 +8,13 @@ namespace JeuEchec
 {
     abstract class Pieces
     {
+        //Variables
         public enum Colour { white, black}
         public Colour colour;
         public Coord coord;
-
         public string DisplayName;
 
+        //Constructeurs
         public Pieces(Colour colour, Coord coord)
         {
             this.colour = colour;
@@ -25,6 +26,7 @@ namespace JeuEchec
             this.colour = colour;
         }
 
+        //Methode
         public virtual List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             return new List<Coord>();

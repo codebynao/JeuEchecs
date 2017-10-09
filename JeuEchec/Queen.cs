@@ -8,15 +8,16 @@ namespace JeuEchec
 {
     class Queen : Pieces
     {
+        //Constructeurs
         public Queen(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Qu." + colour;
         }
         public Queen(Colour colour) : base(colour)
         {
-            DisplayName = "Qu." + colour;
         }
 
+        //Methode
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
@@ -41,7 +42,7 @@ namespace JeuEchec
             int newCoordX;
             int newCoordY;
 
-            //UpLeft
+            /*Up Left*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x + (i * Direction);
@@ -74,7 +75,8 @@ namespace JeuEchec
                 }
             }
 
-            //UpRight
+
+            /*Up Right*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x + (i * Direction);
@@ -107,7 +109,8 @@ namespace JeuEchec
                 }
             }
 
-            //DownLeft
+
+            /*Down Left*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x - (i * Direction);
@@ -140,7 +143,8 @@ namespace JeuEchec
                 }
             }
 
-            //DownRight
+
+            /*Down Right*/
             for (int i = 1; i < 8; i++)
             {
                 newCoordX = coord.x - (i * Direction);
@@ -175,7 +179,8 @@ namespace JeuEchec
 
             int newCoord;
 
-            //Up
+
+            /*Up*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.x + (i * Direction);
@@ -204,8 +209,9 @@ namespace JeuEchec
                     coords.Add(new Coord(newCoord, coord.y));
                 }
             }
+            
 
-            //Down
+            /*Down*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.x - (i * Direction);
@@ -233,7 +239,8 @@ namespace JeuEchec
                 }
             }
 
-            //Right
+
+            /*Right*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.y - (i * Direction);
@@ -257,7 +264,7 @@ namespace JeuEchec
                 }
             }
 
-            //Left
+            /*Left*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.y + (i * Direction);

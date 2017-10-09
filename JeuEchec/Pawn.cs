@@ -8,15 +8,16 @@ namespace JeuEchec
 {
     class Pawn : Pieces
     {
+        //Constructeurs
         public Pawn(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Pa." + colour;
         }
         public Pawn(Colour colour) : base(colour)
         {
-            DisplayName = "Pa." + colour;
         }
 
+        //Methode
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
@@ -64,7 +65,6 @@ namespace JeuEchec
 
             if (CaseSide2 != null && CaseSide2.colour == ColourEnnemy) //Attaque Diagonale
                 coords.Add(new Coord(coord.x + Direction, coord.y - 1));
-
 
             return coords;
         }

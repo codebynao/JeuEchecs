@@ -8,15 +8,16 @@ namespace JeuEchec
 {
     class Rook : Pieces
     {
+        //Constructeurs
         public Rook(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Ro." + colour;
         }
         public Rook(Colour colour) : base(colour)
         {
-            DisplayName = "Ro." + colour;
         }
 
+        //Methodes
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
@@ -40,7 +41,7 @@ namespace JeuEchec
             Pieces CaseDirection = null;
             int newCoord;
 
-            //Up
+            /*Up*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.x + (i * Direction);
@@ -70,7 +71,8 @@ namespace JeuEchec
                 }
             }
 
-            //Down
+
+            /*Down*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.x - (i * Direction);
@@ -98,7 +100,8 @@ namespace JeuEchec
                 }
             }
 
-            //Right
+
+            /*Right*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.y - (i * Direction);
@@ -122,7 +125,8 @@ namespace JeuEchec
                 }
             }
 
-            //Left
+
+            /*Left*/
             for (int i = 1; i < 8; i++)
             {
                 newCoord = coord.y + (i * Direction);

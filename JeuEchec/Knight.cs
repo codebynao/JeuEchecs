@@ -8,6 +8,7 @@ namespace JeuEchec
 {
     class Knight : Pieces
     {
+        //Constructeurs
         public Knight(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Kn." + colour;
@@ -16,6 +17,7 @@ namespace JeuEchec
         {
         }
 
+        //Methode
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();

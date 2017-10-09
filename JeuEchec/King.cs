@@ -8,14 +8,16 @@ namespace JeuEchec
 {
     class King : Pieces
     {
+        //Constructeurs
         public King(Colour colour, Coord coord) : base(colour, coord)
         {
             DisplayName = "Ki." + colour;
         }
         public King(Colour colour) : base(colour)
         {
-            DisplayName = "Ki." + colour;
         }
+
+        //Methodes
         public override List<Coord> GetPossibleMoves(Pieces[,] GameBoard, Coord coord)
         {
             List<Coord> coords = new List<Coord>();
@@ -162,10 +164,6 @@ namespace JeuEchec
 
             else if (CaseDirection == null && newCoordY < 8 && newCoordY >= 0)
                 coords.Add(new Coord(coord.x, newCoordY));
-
-
-
-
 
             return coords;
         }
