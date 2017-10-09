@@ -18,8 +18,10 @@ namespace JeuEchec
         public int col;
         public Pieces pieceCurrentPlayer;
         public List<Coord> possibleCoordsPiece;
-        public int index;
-        public int choice;
+        private int index;
+        private int choice;
+        private Pieces KingWhite = null;
+        private Pieces KingBlack = null;
 
         public void StartGame()
         {
@@ -32,14 +34,45 @@ namespace JeuEchec
             //choix du joueur qui commence
             FirstPlayer();
 
+
             //Partie finie ou non
             bool gameOver = IsGameOver();
 
-            while( gameOver == false)
+            while(gameOver == false)
             {
-                PlayTurn();
+                IsGameOver();
+                PlayTurn();              
             }
             
+        }
+
+        public void PlayTurn()
+        {
+            Console.WriteLine("C'est au tour des pions " + ColourCurrentPlayer);
+
+            //Le joueur choisit un pion
+            pieceCurrentPlayer = AskPieceToPlayer();
+            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]\n");
+
+            //Récupération de la liste des déplacements possibles
+            possibleCoordsPiece = GetCurrentPiecePossibleMoves();
+
+            //Le joueur choisit son déplacement
+            ChooseCoords();
+
+            //Déplacement du pion
+            MovePiece();
+
+            //Changement de joueur
+            if (ColourCurrentPlayer == Pieces.Colour.white)
+            {
+                ColourCurrentPlayer = Pieces.Colour.black;
+            }
+            else
+            {
+                ColourCurrentPlayer = Pieces.Colour.white;
+            }
+
         }
 
         //Remplissage du plateau
@@ -118,42 +151,6 @@ namespace JeuEchec
                         break;
                 }
             }
-
-            /*
-            GameBoard[0, 0] = new Rook(Pieces.Colour.black);
-            GameBoard[0, 1] = new Knight(Pieces.Colour.black);
-            GameBoard[0, 2] = new Bishop(Pieces.Colour.black);
-            GameBoard[0, 3] = new Queen(Pieces.Colour.black);
-            GameBoard[0, 4] = new King(Pieces.Colour.black);
-            GameBoard[0, 5] = new Bishop(Pieces.Colour.black);
-            GameBoard[0, 6] = new Knight(Pieces.Colour.black);
-            GameBoard[0, 7] = new Rook(Pieces.Colour.black);
-
-            for (int i = 1; i < 2; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    GameBoard[i, j] = new Pawn(Pieces.Colour.black);
-                }
-            }
-
-            for (int i = 6; i < 7; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    GameBoard[i, j] = new Pawn(Pieces.Colour.white);
-                }
-            }
-
-            GameBoard[7, 0] = new Rook(Pieces.Colour.white);
-            GameBoard[7, 1] = new Knight(Pieces.Colour.white);
-            GameBoard[7, 2] = new Bishop(Pieces.Colour.white);
-            GameBoard[7, 3] = new King(Pieces.Colour.white);
-            GameBoard[7, 4] = new Queen(Pieces.Colour.white);
-            GameBoard[7, 5] = new Bishop(Pieces.Colour.white);
-            GameBoard[7, 6] = new Knight(Pieces.Colour.white);
-            GameBoard[7, 7] = new Rook(Pieces.Colour.white);*/
-
         }
 
         //Affichage du plateau et des pions
@@ -166,11 +163,17 @@ namespace JeuEchec
                     //Console.Write(" ------------ ");
                     if (GameBoard[i, j] != null)
                     {
-                        Console.Write("|  " + GameBoard[i, j].DisplayName + "  |");
+                        if (j == 0)
+                            Console.Write(" " + i + " |  " + GameBoard[i, j].DisplayName + "  |");
+                        else
+                            Console.Write("|  " + GameBoard[i, j].DisplayName + "  |");
                     }
                     else
                     {
-                        Console.Write("|     xx     |");
+                        if (j == 0)
+                            Console.Write(" " + i + " |     xx     |");
+                        else
+                            Console.Write("|     xx     |");
                     }
                 }
                 Console.WriteLine();
@@ -196,39 +199,6 @@ namespace JeuEchec
                 Console.WriteLine(Player.ListPlayers[1] + " commence la partie avec les pions " + ColourCurrentPlayer);
             }
         }
-
-
-        public void PlayTurn()
-        {
-            Console.WriteLine("C'est au tour des pions " + ColourCurrentPlayer);
-            
-            //Le joueur choisit un pion
-            pieceCurrentPlayer = AskPieceToPlayer();
-            Console.WriteLine("Vous jouez le pion " + GameBoard[lig, col].DisplayName + "[" + lig + "," + col + "]\n");
-
-            //Récupération de la liste des déplacements possibles
-            possibleCoordsPiece = GetCurrentPiecePossibleMoves();
-
-            //Le joueur choisit son déplacement
-            ChooseCoords();
-
-            //Déplacement du pion
-            MovePiece();
-
-            //Changement de joueur
-            if (ColourCurrentPlayer == Pieces.Colour.white)
-            {
-                ColourCurrentPlayer = Pieces.Colour.black;
-            }
-            else
-            {
-                ColourCurrentPlayer = Pieces.Colour.white;
-            }
-
-        }
-
-
-
 
         //Demande un pion au joueur en choisissant ses coordonnées
         public Pieces AskPieceToPlayer()
@@ -265,7 +235,6 @@ namespace JeuEchec
                     Console.WriteLine(index + " - [" + possibleCoordsPiece[i].x + "," + possibleCoordsPiece[i].y + "]");
                     index += 1;
                 }
-
                 choice = int.Parse(Console.ReadLine());
             }
             else
@@ -303,17 +272,39 @@ namespace JeuEchec
                    
                 }
             }
-            
-            Console.WriteLine();
-            Console.WriteLine();
-            
+            Console.Clear();
             PrintBoard();
         }
+        
+        //Récupération des coordonnées des Rois
+        public void CoordsKings()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (GameBoard[i, j] != null && GameBoard[i, j].DisplayName == "Ki.white")
+                        KingWhite = new King(Pieces.Colour.white);
+                    else if (GameBoard[i, j] != null && GameBoard[i, j].DisplayName == "Ki.black")
+                        KingBlack = new King(Pieces.Colour.black);
+
+                }
+            }
+        }
+
 
         //Fin de partie
         public bool IsGameOver()
         {
-            return false;
+            CoordsKings();
+
+            if (KingBlack == null || KingWhite == null)
+            {
+                Console.WriteLine("Les " + ColourCurrentPlayer + " gagnent la partie");
+                return true;
+            }
+            else
+                return false;
         }
 
 

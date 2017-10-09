@@ -139,7 +139,7 @@ namespace JeuEchec
                 {
                     break;
                 }
-                else if (CaseDirection != null && CaseDirection.colour == ColourEnnemy)
+                else if (CaseDirection != null && CaseDirection.colour == ColourEnnemy && (newCoord < 8 && newCoord >= 0))
                 {
                     coords.Add(new Coord(coord.x, newCoord));
                     break;
