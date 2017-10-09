@@ -173,7 +173,7 @@ namespace JeuEchec
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                     }
 
-                    //Affichage case pions
+                    //Affichage cases pions
                     if (GameBoard[i, j] != null)
                     {
                         if (j == 0)
@@ -190,7 +190,7 @@ namespace JeuEchec
                         }
                     }
 
-                    //Affichage case vie
+                    //Affichage cases vides
                     else
                     {
                         if (j == 0)
@@ -288,7 +288,7 @@ namespace JeuEchec
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                     }
 
-                    //Affichage case déplacements possibles
+                    //Affichage cases déplacements possibles
                     for (int k = 0; k < possibleCoordsPiece.Count; k++)
                     {
                         if (possibleCoordsPiece[k].x == i && possibleCoordsPiece[k].y == j)
@@ -297,7 +297,7 @@ namespace JeuEchec
                         }
                     }
 
-                    //Affichage case pions
+                    //Affichage cases pions
                     if (GameBoard[i, j] != null)
                     {
                         if (j == 0)
@@ -314,7 +314,7 @@ namespace JeuEchec
                         }
                     }
 
-                    //Affichage case vide
+                    //Affichage cases vides
                     else
                     {
                         if (j == 0)
