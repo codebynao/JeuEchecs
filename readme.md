@@ -1,1 +1,1 @@
-Création d'un jeu d'Echec en console
+Création d'un jeu d'Echecs en console
